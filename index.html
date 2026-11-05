@@ -1,5 +1,12 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F0F0EA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111210" media="(prefers-color-scheme: dark)">
+<style>html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{margin:0}img{max-width:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <title>Ash's Closet</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -7,17 +14,17 @@
 /* Layout: a personal closet app — sticky top bar with three views (Outfits, Shuffle, Closet); outfit boards laid out like flat-lays with item tags. */
 :root{
   --bg:#F0F0EA; --surface:#FAFAF6; --fg:#1C1D17; --muted:#64665A; --line:#D9D9CF;
-  --accent:#4F5E2E; --accent-fg:#F6F7EF; --chip:#E4E5DA; --heart:#A2382B;
+  --accent:#4F5E2E; --accent-fg:#F6F7EF; --chip:#E4E5DA; --heart:#A2382B; --img:#F3F3EF;
   --display:"Bodoni Moda","Didot",Georgia,serif;
   --body:"Work Sans",system-ui,-apple-system,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#14150F; --surface:#1C1D16; --fg:#ECEBE3; --muted:#A3A595; --line:#33352B;
-  --accent:#AFBE80; --accent-fg:#14150F; --chip:#272920; --heart:#E07A6A; color-scheme:dark }}
+  --bg:#111210; --surface:#1A1C18; --fg:#EDECE4; --muted:#A4A697; --line:#2D3029;
+  --accent:#B8C786; --accent-fg:#111210; --chip:#24271F; --heart:#E8806F; --img:#D9D8D0; color-scheme:dark }}
 :root[data-theme="dark"]{
-  --bg:#14150F; --surface:#1C1D16; --fg:#ECEBE3; --muted:#A3A595; --line:#33352B;
-  --accent:#AFBE80; --accent-fg:#14150F; --chip:#272920; --heart:#E07A6A; color-scheme:dark }
+  --bg:#111210; --surface:#1A1C18; --fg:#EDECE4; --muted:#A4A697; --line:#2D3029;
+  --accent:#B8C786; --accent-fg:#111210; --chip:#24271F; --heart:#E8806F; --img:#D9D8D0; color-scheme:dark }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
@@ -80,17 +87,57 @@ select{font:inherit;font-size:13px;background:var(--surface);color:var(--fg);bor
 .rule{border-top:2px solid var(--accent);padding-top:10px;min-width:0}
 .rule h4{margin:0 0 4px;font-size:14px;font-weight:600}
 .rule p{margin:0;color:var(--muted);font-size:13px}
+.alt{margin:-4px 0 0;font-size:13px;color:var(--muted)}
+.ph.ct img{object-fit:contain;background:var(--img)}
+.theme{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;flex:none}
+.theme svg{width:18px;height:18px}
+.right{display:flex;align-items:center;gap:10px}
+@media (prefers-reduced-motion:no-preference){body,.look,.bar,.tabs a,.seg button{transition:background-color .25s,color .25s,border-color .25s}}
 @media (max-width:820px){.grid{grid-template-columns:1fr}.rules{grid-template-columns:1fr}}
-@media (max-width:480px){.brand{font-size:20px}.tabs a{padding:6px 10px}}
+@media (max-width:600px){
+  body{font-size:16.5px}
+  .bar .inner{flex-wrap:wrap;gap:10px;padding-block:10px}
+  .right{display:contents}
+  .brand{font-size:23px;white-space:nowrap;order:1;flex:1}
+  .theme{order:2}
+  .tabs{order:3;width:100%;display:grid;grid-template-columns:repeat(3,1fr)}
+  .tabs a{text-align:center;padding:8px 6px;font-size:15px}
+  h1{font-size:38px}
+  .lede{font-size:16px}
+  .seg button,.btn,select{font-size:14.5px;padding:8px 13px}
+  label.sel{font-size:14.5px}
+  .count{font-size:14px}
+  .look{padding:16px;gap:12px}
+  .look h3{font-size:23px}
+  .tag{font-size:12px}
+  main .inner>*{min-width:0;max-width:100%}
+  .controls{gap:10px;flex-direction:column;align-items:stretch;min-width:0}
+  .controls>*{min-width:0;max-width:calc(100% + 32px)}
+  .controls .seg{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-inline:-16px;padding-inline:16px}
+  .controls .seg::-webkit-scrollbar{display:none}
+  .seg button{flex:none}
+  .lay,.stage .lay{grid-auto-flow:row;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .cap{font-size:13.5px}
+  .cap span{font-size:12px}
+  .why,.alt{font-size:15px}
+  .fav{font-size:24px}
+  .stage{padding:18px}
+  .items{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rule h4{font-size:16px}.rule p{font-size:15px}
+}
+
 </style>
 
+</head>
+<body>
 <header class="bar gut"><div class="inner">
   <div class="brand">Ash's Closet</div>
-  <nav class="tabs" aria-label="Views">
+  <div class="right"><nav class="tabs" aria-label="Views">
     <a href="#outfits" data-v="outfits">Outfits</a>
     <a href="#shuffle" data-v="shuffle">Shuffle</a>
     <a href="#closet" data-v="closet">Closet</a>
   </nav>
+  <button class="theme" id="theme" type="button" aria-label="Switch to dark mode"></button></div>
 </div></header>
 
 <main class="gut">
@@ -99,7 +146,7 @@ select{font:inherit;font-size:13px;background:var(--surface);color:var(--fg);bor
     <div>
       <div class="eyebrow">5′8″ · warm undertone · built from your closet photos</div>
       <h1>Every outfit you own</h1>
-      <p class="lede">Stylist picks first, then every other combo that passes your colour and layering rules, from summer tees to the puffer. Filter by weather, or pick a piece to see everything it goes with.</p>
+      <p class="lede">Stylist picks first, then every other combo that passes your colour and layering rules, from the gym to the puffer. Every outfit comes with the right shoes. Filter by weather, or pick a piece to see everything it goes with.</p>
     </div>
     <div class="controls">
       <div class="seg" id="wx" role="group" aria-label="Weather"></div>
@@ -134,6 +181,14 @@ select{font:inherit;font-size:13px;background:var(--surface);color:var(--fg);bor
     </div>
     <div id="cats" style="display:flex;flex-direction:column;gap:32px"></div>
     <div class="cat">
+      <h2>Stylist notes</h2>
+      <div class="rules">
+        <div class="rule"><h4>Clean the white sneakers</h4><p>Your white leather pair is scuffed and grey at the toes. Ten minutes with a magic eraser makes every outfit here look sharper.</p></div>
+        <div class="rule"><h4>The one gap: a dark shoe</h4><p>All four pairs are white. When you next buy anything, make it brown suede Chelsea boots or loafers. They'd upgrade every chinos and knit outfit.</p></div>
+        <div class="rule"><h4>Gym tees stay at the gym</h4><p>Deadpool, N64, the 03 ringer and both Bears tees only show up in Gym looks. Keep them there.</p></div>
+      </div>
+    </div>
+    <div class="cat">
       <h2>The rules behind the combos</h2>
       <div class="rules">
         <div class="rule"><h4>One denim piece max</h4><p>Denim shirt, sherpa jacket and medium jeans never go together.</p></div>
@@ -144,6 +199,8 @@ select{font:inherit;font-size:13px;background:var(--surface);color:var(--fg);bor
         <div class="rule"><h4>Graphic tees stay casual</h4><p>Big-print tees only go with jeans or cargos, never chinos or ivory. Cargos only go with tees and hoodies.</p></div>
         <div class="rule"><h4>Caps stay casual</h4><p>Caps only go on summer looks and outfits with a tee, hoodie, denim jacket, flannel or heavy jacket. The navy cap never goes with another navy piece.</p></div>
         <div class="rule"><h4>Weekend tag</h4><p>Outfits with hoodies, graphic tees, cargos, light-wash denim or the denim jacket are marked Weekend. Use "Grown-up only" to hide them.</p></div>
+        <div class="rule"><h4>Shoes follow the colours</h4><p>Earthy or denim outfits get the Levi's sneakers with the tan heel. Black, white, grey and navy get the white leather pair. Light summer looks get the slip-ons. The gym always gets the Adidas runners.</p></div>
+        <div class="rule"><h4>One busy thing at the gym</h4><p>The wash-print shorts only go with plain tops. Shorts get white crew socks, joggers get black ankle socks.</p></div>
         <div class="rule"><h4>Weather-sensible</h4><p>No short sleeves or white jeans under the puffer. Polos only under a layer when it's cool.</p></div>
       </div>
     </div>
@@ -151,6 +208,17 @@ select{font:inherit;font-size:13px;background:var(--surface);color:var(--fg);bor
 </main>
 
 <script>
+(function(){
+ var root=document.documentElement, mq=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
+ var MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+ var SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+ function isDark(){var t=root.getAttribute('data-theme');return t?t==='dark':!!(mq&&mq.matches)}
+ function paint(){var b=document.getElementById('theme');if(!b)return;var d=isDark();b.innerHTML=d?SUN:MOON;b.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode')}
+ try{var saved=localStorage.getItem('closet-theme');if(saved)root.setAttribute('data-theme',saved)}catch(e){}
+ paint();
+ document.getElementById('theme').addEventListener('click',function(){var n=isDark()?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('closet-theme',n)}catch(e){}paint()});
+ if(mq&&mq.addEventListener)mq.addEventListener('change',paint);
+})();
 (function(){
 var IT={
  '2141':{n:'North Face puffer',t:'heavy',c:'black',d:0,f:1},
@@ -177,10 +245,10 @@ var IT={
  '2102':{n:'White logo tee',t:'tee',c:'white',d:0,f:1},
  '2109':{n:'Black Speed Racer tee',t:'tee',c:'black',d:0,f:1},
  '2112':{n:'Navy graphic tee',t:'tee',c:'navy',d:0,f:1},
- '2115':{n:'White art tee',t:'gtee',c:'white',d:0,f:1,w:1},
- '2107':{n:'Black Virtual Nomad tee',t:'gtee',c:'black',d:0,f:1,w:1},
- '2111':{n:"Black Gold's Gym tee",t:'gtee',c:'black',d:0,f:1,w:1},
- '2114':{n:'Letter-print tee',t:'gtee',c:'pattern',d:0,f:1,w:1},
+ '2115':{n:'White art tee',t:'gtee',c:'white',d:0,f:1,w:1,pr:1},
+ '2107':{n:'Black Virtual Nomad tee',t:'gtee',c:'black',d:0,f:1,w:1,pr:1},
+ '2111':{n:"Black Gold's Gym tee",t:'gtee',c:'black',d:0,f:1,w:1,pr:1},
+ '2114':{n:'Letter-print tee',t:'gtee',c:'pattern',d:0,f:1,w:1,pr:1},
  '2125':{n:'Black hoodie',t:'hood',c:'black',d:0,f:1,w:1},
  '2126':{n:'Cream hoodie',t:'hood',c:'cream',d:0,f:1,w:1},
  '2137':{n:'Light denim jacket',t:'jean',c:'blue',d:1,f:1,w:1},
@@ -188,6 +256,26 @@ var IT={
  '2132':{n:'Brown chinos',t:'bottom',c:'brown',d:0,f:3},
  '2136':{n:'Sage chinos',t:'bottom',c:'sage',d:0,f:2},
  '2134':{n:'Medium-wash jeans',t:'bottom',c:'blue',d:1,f:1},
+ '2154':{n:'Black Google tee',t:'tee',c:'black',d:0,f:1},
+ '2153':{n:'Green long-sleeve tee',t:'gtop',c:'green',d:0,f:1},
+ '2156':{n:'Black North Face tank',t:'gtop',c:'black',d:0,f:1},
+ '2158':{n:'Black upwind tank',t:'gtop',c:'black',d:0,f:1},
+ '2155':{n:'Black 03 ringer tee',t:'gtop',c:'black',d:0,f:1,pr:1},
+ '2152':{n:'Nintendo 64 tee',t:'gtop',c:'black',d:0,f:1,pr:1},
+ '2157':{n:'Deadpool tee',t:'gtop',c:'black',d:0,f:1,pr:1},
+ '2151':{n:'White Golden Bears tee',t:'gtop',c:'white',d:0,f:1,pr:1},
+ '2159':{n:'Yellow Bears tee',t:'gtop',c:'yellow',d:0,f:1,pr:1},
+ '2143':{n:'Black gym shorts',t:'gbot',c:'black',d:0,f:1},
+ '2146':{n:'Black drawstring shorts',t:'gbot',c:'black',d:0,f:1},
+ '2144':{n:'Grey gym shorts',t:'gbot',c:'grey',d:0,f:1},
+ '2145':{n:'Grey wash-print shorts',t:'gbot',c:'grey',d:0,f:1,pr:1},
+ 'JG':{n:'Black joggers',t:'gbot',c:'black',d:0,f:1},
+ '2147':{n:'White leather sneakers',t:'shoe',c:'white',d:0,f:2},
+ '2148':{n:"Levi's court sneakers",t:'shoe',c:'white',d:0,f:2},
+ '2149':{n:'White slip-ons',t:'shoe',c:'white',d:0,f:1},
+ '2150':{n:'White Adidas runners',t:'shoe',c:'white',d:0,f:1},
+ '2160':{n:'White Adidas crew socks',t:'sock',c:'white',d:0,f:1},
+ '2161':{n:'Black ankle socks',t:'sock',c:'black',d:0,f:1},
  'HN':{n:'Navy Yankees cap',t:'hat',c:'navy',d:0,f:1},
  'HC':{n:'Cream Yankees cap',t:'hat',c:'cream',d:0,f:1},
  'WJ':{n:'White jeans',t:'bottom',c:'white',d:0,f:2,np:1},
@@ -224,7 +312,7 @@ var PICKS=[
 ['mild','Clean neutrals',['2121','2130'],'Stone polo with black jeans. Simple and sharp.'],
 ['mild','Office',['2117','2130'],'Olive is made for your undertone. Half-tuck it.'],
 ['mild','Light and easy',['2123','2136'],'White camp collar with sage chinos.'],
-['mild','Weekend lunch',['2123','2132'],'White shirt, brown chinos, brown shoes.'],
+['mild','Weekend lunch',['2123','2132'],'White shirt, brown chinos. The Levi\'s sneakers pick up the brown.'],
 ['mild','Denim and ivory',['2124','IV'],'Dark denim shirt with ivory pants. Sleeves rolled.'],
 ['mild','Black and white',['2106','WJ'],'High contrast. Very sharp on you.'],
 ['mild','Smart dark',['2104','2132'],'Black shirt with brown chinos and a brown belt.'],
@@ -235,7 +323,7 @@ var PICKS=[
 ['summer','Black and white',['2109','WJ'],'Black tee, white jeans. Simple and sharp in the heat.'],
 ['summer','Navy and brown',['2112','2132'],'A tee with chinos looks more put-together than with jeans.'],
 ['summer','Green and light denim',['2122','2133'],'Your best colour with light jeans. Easy weekend look.'],
-['summer','White and sage',['2102','2136'],'Light and fresh. Add brown sneakers or loafers.'],
+['summer','White and sage',['2102','2136'],'Light and fresh. White slip-ons keep it summery.'],
 ['summer','Black tee, blue jeans',['2109','2134'],'The classic. Make sure the tee isn\'t oversized.'],
 ['summer','Navy and white',['2112','WJ'],'Navy and white is always clean.'],
 ['summer','Art tee, black jeans',['2115','2130'],'Let the print be the only loud thing in the outfit.'],
@@ -254,9 +342,19 @@ var PICKS=[
 ['cool','Denim jacket and cap',['2137','2102','2130','HN'],'Light denim, white tee, navy cap. Classic spring weekend.'],
 ['cool','Flannel and cap',['2129','2109','2130','HC'],'Plaid over black with a cream cap to lift it.'],
 ['cool','Hoodie and cap',['2125','2134','HC'],'Black hoodie with a cream cap so it isn\'t all dark.'],
+['gym','Classic black',['2154','2143'],'Black tee, black shorts, white crew socks. Clean and simple.'],
+['gym','Grey and black',['2156','2144'],'Black tank with grey shorts. Good for upper-body days.'],
+['gym','Wash-print shorts',['2158','2145'],'The print shorts get a plain black tank so only one thing is busy.'],
+['gym','Old school',['2111','2146'],'Gold\'s Gym tee with black shorts. Made for the gym.'],
+['gym','Cold morning',['2125','JG'],'Black hoodie and joggers for the walk in, layers off for the lift.'],
+['gym','Long sleeve',['2153','JG'],'Green long sleeve over black joggers. Good for cardio when it\'s cool.'],
+['gym','Bears',['2159','2143'],'Yellow is loud, so everything else stays black.'],
+['gym','Ringer',['2155','2144'],'The 03 ringer with grey shorts. Sporty and clean.'],
+['gym','Retro',['2152','2146'],'N64 tee and black shorts. Fun at the gym, not outside it.'],
+['gym','Cream hoodie',['2126','2143'],'Cream hoodie over black shorts for a cold gym.'],
 ['very','New York winter',['2141','2126','2130','HN'],'Puffer, cream hood, navy cap. Built for a cold day in the city.']
 ];
-var WX={very:'Very cold',cool:'Kinda cold',mild:'Good combos',summer:'Summer'};
+var WX={very:'Very cold',cool:'Kinda cold',mild:'Good combos',summer:'Summer',gym:'Gym'};
 var GREENS={green:1,olive:1,sage:1,plaid:1};var PAT={plaid:1,pattern:1};
 var LIGHT={cream:1,white:1,ivory:1,oatmeal:1,stone:1,sage:1};
 var BEIGE={oatmeal:1,stone:1,sage:1};
@@ -303,7 +401,9 @@ by(['heavy']).forEach(function(h){
     SMART.filter(function(b){return b!=='WJ'}).forEach(function(b){gen.push(['very',[h,base,b]])})});
   by(['hood']).forEach(function(base){ if(IT[base].c===IT[h].c) return; JEANS.filter(function(b){return b!=='WJ'}).forEach(function(b){gen.push(['very',[h,base,b]])})})
 });
-var CAS={hood:1,gtee:1,tee:1,jean:1,heavy:1};
+by(['gtop','gtee','tee','hood']).forEach(function(t){by(['gbot']).forEach(function(b){
+  if(IT[t].pr&&IT[b].pr)return; if(IT[t].c==='white'&&IT[t].t!=='gtop'&&IT[t].t!=='tee')return; gen.push(['gym',[t,b]])})});
+var CAS={hood:1,gtee:1,tee:1,jean:1,heavy:1,gtop:1};
 var hatGen=[];
 gen.forEach(function(g){var ids=g[1];if(!(g[0]==='summer'||ids.some(function(k){return CAS[IT[k].t]||k==='2129'})))return;
   ['HN','HC'].forEach(function(h){hatGen.push([g[0],ids.concat([h])])})});
@@ -313,24 +413,34 @@ var ALL=PICKS.map(function(p,i){return{id:'p'+i,wk:p[2].some(function(k){return 
 gen.forEach(function(g,i){var key=g[1].join('|');if(seen[key]||!ok(g[1]))return;seen[key]=1;
   var hat=IT[g[1][g[1].length-1]].t==='hat';var base=hat?g[1].slice(0,-1):g[1];var names=base.map(function(k){return IT[k].n});
   ALL.push({id:'g'+key,wk:g[1].some(function(k){return IT[k].w}),w:g[0],title:(names.length===3?names[0]+' over '+names[1].toLowerCase()+', '+names[2].toLowerCase():names[0]+', '+names[1].toLowerCase())+(hat?' + '+IT[g[1][g[1].length-1]].n.replace('Yankees ','').toLowerCase():''),ids:g[1],why:'',pick:0,s:score(g[1])})});
+var EARTH={brown:1,oatmeal:1,sage:1,olive:1,plaid:1,blue:1,cream:1,stone:1};
+ALL.forEach(function(o){
+  var bot=o.ids.filter(function(k){return IT[k].t==='bottom'||IT[k].t==='gbot'})[0];
+  if(o.w==='gym'){o.wk=false;o.kk=['2150',bot==='JG'?'2161':'2160'];o.alt='';return}
+  var earth=o.ids.some(function(k){return EARTH[IT[k].c]}), cargo=bot&&IT[bot].cas&&bot!=='2133';
+  var main=earth||cargo?'2148':'2147', alt=main==='2148'?'2147':'2148';
+  if(o.w==='summer'&&!cargo&&['WJ','IV','2136','2133'].indexOf(bot)>-1){alt=main;main='2149'}
+  o.kk=[main];o.alt=alt;
+});
+ALL.forEach(function(o){o.every=o.ids.concat(o.kk);});
 ALL.forEach(function(o){o.cap=o.ids.some(function(k){return IT[k].t==='hat'});if(o.wk&&!o.pick)o.s-=1.5;if(o.cap&&!o.pick)o.s-=.5});ALL.sort(function(a,b){return b.s-a.s});
 
 var FAV={};try{FAV=JSON.parse(localStorage.getItem('closet-favs')||'{}')||{}}catch(e){FAV={}}
 function saveFav(){try{localStorage.setItem('closet-favs',JSON.stringify(FAV))}catch(e){}}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-function ph(k){var x=IT[k];return x.np?'<div class="ph blank">'+esc(x.n)+'<br>(no photo yet)</div>':'<div class="ph"><img src="'+k+'.jpg" alt="'+esc(x.n)+'" loading="lazy"></div>'}
-function piece(k){var x=IT[k];return '<div class="piece">'+ph(k)+'<div class="cap">'+esc(x.n)+'<span>'+(x.np?'owned':x.t==='hat'?'cap':'IMG_'+k)+'</span></div></div>'}
-function card(o){return '<article class="look"><div class="lhead"><div><div class="tags"><span class="tag'+(o.pick?' pick':'')+'">'+(o.pick?'Stylist pick':'Combo')+'</span><span class="tag">· '+WX[o.w]+'</span>'+(o.wk?'<span class="tag wk">&middot; Weekend</span>':'')+'</div><h3>'+esc(o.title)+'</h3></div><button class="fav" type="button" data-f="'+esc(o.id)+'" aria-pressed="'+(FAV[o.id]?'true':'false')+'" aria-label="Save to favourites">'+(FAV[o.id]?'♥':'♡')+'</button></div><div class="lay">'+o.ids.map(piece).join('')+'</div>'+(o.why?'<p class="why">'+esc(o.why)+'</p>':'')+'</article>'}
+function ph(k){var x=IT[k];var ct=x.t==='hat'?' ct':'';return x.np?'<div class="ph blank">'+esc(x.n)+'<br>(no photo yet)</div>':'<div class="ph'+ct+'"><img src="'+k+'.jpg" alt="'+esc(x.n)+'" loading="lazy"></div>'}
+function piece(k){var x=IT[k];return '<div class="piece">'+ph(k)+'<div class="cap">'+esc(x.n)+'<span>'+(x.np?'owned':x.t==='hat'?'cap':x.t==='shoe'?'shoes':x.t==='sock'?'socks':'IMG_'+k)+'</span></div></div>'}
+function card(o){return '<article class="look"><div class="lhead"><div><div class="tags"><span class="tag'+(o.pick?' pick':'')+'">'+(o.pick?'Stylist pick':'Combo')+'</span><span class="tag">· '+WX[o.w]+'</span>'+(o.wk?'<span class="tag wk">&middot; Weekend</span>':'')+'</div><h3>'+esc(o.title)+'</h3></div><button class="fav" type="button" data-f="'+esc(o.id)+'" aria-pressed="'+(FAV[o.id]?'true':'false')+'" aria-label="Save to favourites">'+(FAV[o.id]?'♥':'♡')+'</button></div><div class="lay">'+o.every.map(piece).join('')+'</div>'+(o.alt?'<p class="alt">Or wear the '+esc(IT[o.alt].n.replace("Levi's ",'Levi\'s ').toLowerCase().replace("levi's","Levi's"))+'</p>':'')+(o.why?'<p class="why">'+esc(o.why)+'</p>':'')+'</article>'}
 
 // outfits view
 var st={w:'all',src:'all',cap:'any',piece:'',n:24};
 function seg(el,opts,cur,cb){el.innerHTML=opts.map(function(o){return '<button type="button" data-v="'+o[0]+'" aria-pressed="'+(o[0]===cur)+'">'+o[1]+'</button>'}).join('');
   el.onclick=function(e){var b=e.target.closest('button');if(!b)return;cb(b.dataset.v)}}
 function renderOutfits(){
-  seg(document.getElementById('wx'),[['all','All weather'],['very','Very cold'],['cool','Kinda cold'],['mild','Good combos'],['summer','Summer']],st.w,function(v){st.w=v;st.n=24;renderOutfits()});
+  seg(document.getElementById('wx'),[['all','All weather'],['very','Very cold'],['cool','Kinda cold'],['mild','Good combos'],['summer','Summer'],['gym','Gym']],st.w,function(v){st.w=v;st.n=24;renderOutfits()});
   seg(document.getElementById('src'),[['all','All'],['pick','Stylist picks'],['grown','Grown-up only'],['fav','♥ Saved']],st.src,function(v){st.src=v;st.n=24;renderOutfits()});
   seg(document.getElementById('capf'),[['any','Caps: any'],['cap','With a cap'],['nocap','No cap']],st.cap,function(v){st.cap=v;st.n=24;renderOutfits()});
-  var L=ALL.filter(function(o){return(st.cap==='any'||(st.cap==='cap'&&o.cap)||(st.cap==='nocap'&&!o.cap))&&(st.w==='all'||o.w===st.w)&&(st.src==='all'||(st.src==='pick'&&o.pick)||(st.src==='grown'&&!o.wk)||(st.src==='fav'&&FAV[o.id]))&&(!st.piece||o.ids.indexOf(st.piece)>-1)});
+  var L=ALL.filter(function(o){return(st.cap==='any'||(st.cap==='cap'&&o.cap)||(st.cap==='nocap'&&!o.cap))&&(st.w==='all'||o.w===st.w)&&(st.src==='all'||(st.src==='pick'&&o.pick)||(st.src==='grown'&&!o.wk)||(st.src==='fav'&&FAV[o.id]))&&(!st.piece||o.every.indexOf(st.piece)>-1)});
   document.getElementById('count').textContent=L.length+' outfit'+(L.length===1?'':'s');
   document.getElementById('list').innerHTML=L.length?L.slice(0,st.n).map(card).join(''):'<p class="empty">Nothing here yet. Tap ♡ on any outfit to save it.</p>';
   var m=document.getElementById('more');m.hidden=L.length<=st.n;m.textContent='Show more ('+(L.length-st.n)+' left)';
@@ -346,15 +456,15 @@ document.addEventListener('click',function(e){var b=e.target.closest('.fav');if(
 var sw='cool',cur=null;
 function shuffle(){var L=ALL.filter(function(o){return o.w===sw});var n;do{n=L[Math.floor(Math.random()*L.length)]}while(L.length>1&&n===cur);cur=n;renderShuffle()}
 function renderShuffle(){
-  seg(document.getElementById('swx'),[['very','Very cold'],['cool','Kinda cold'],['mild','Mild'],['summer','Summer']],sw,function(v){sw=v;shuffle()});
+  seg(document.getElementById('swx'),[['very','Very cold'],['cool','Kinda cold'],['mild','Mild'],['summer','Summer'],['gym','Gym']],sw,function(v){sw=v;shuffle()});
   if(!cur){shuffle();return}
-  var o=cur;document.getElementById('stage').innerHTML='<div class="lhead"><div><div class="tags"><span class="tag'+(o.pick?' pick':'')+'">'+(o.pick?'Stylist pick':'Combo')+'</span><span class="tag">· '+WX[o.w]+'</span>'+(o.wk?'<span class="tag wk">&middot; Weekend</span>':'')+'</div><h2>'+esc(o.title)+'</h2></div><button class="fav" type="button" data-f="'+esc(o.id)+'" aria-pressed="'+(FAV[o.id]?'true':'false')+'" aria-label="Save to favourites">'+(FAV[o.id]?'♥':'♡')+'</button></div><div class="lay">'+o.ids.map(piece).join('')+'</div>'+(o.why?'<p class="why">'+esc(o.why)+'</p>':'')+'<div class="srow"><button class="btn primary" id="again" type="button">Another one</button><span class="count">'+ALL.filter(function(x){return x.w===sw}).length+' options for this weather</span></div>';
+  var o=cur;document.getElementById('stage').innerHTML='<div class="lhead"><div><div class="tags"><span class="tag'+(o.pick?' pick':'')+'">'+(o.pick?'Stylist pick':'Combo')+'</span><span class="tag">· '+WX[o.w]+'</span>'+(o.wk?'<span class="tag wk">&middot; Weekend</span>':'')+'</div><h2>'+esc(o.title)+'</h2></div><button class="fav" type="button" data-f="'+esc(o.id)+'" aria-pressed="'+(FAV[o.id]?'true':'false')+'" aria-label="Save to favourites">'+(FAV[o.id]?'♥':'♡')+'</button></div><div class="lay">'+o.every.map(piece).join('')+'</div>'+(o.alt?'<p class="alt">Or wear the '+esc(IT[o.alt].n.replace("Levi's ",'Levi\'s ').toLowerCase().replace("levi's","Levi's"))+'</p>':'')+(o.why?'<p class="why">'+esc(o.why)+'</p>':'')+'<div class="srow"><button class="btn primary" id="again" type="button">Another one</button><span class="count">'+ALL.filter(function(x){return x.w===sw}).length+' options for this weather</span></div>';
   document.getElementById('again').onclick=shuffle;
 }
 
 // closet
-var CATS=[['Jackets',['heavy','jean']],['Layers',['mid']],['Knits',['knit']],['Hoodies',['hood']],['Shirts and polos',['shirt','polo','lspolo']],['Tees',['tee','gtee']],['Caps',['hat']],['Trousers',['bottom']]];
-function renderCloset(){document.getElementById('cats').innerHTML=CATS.map(function(c){return '<div class="cat"><h2>'+c[0]+'</h2><div class="items">'+by(c[1]).map(function(k){var n=ALL.filter(function(o){return o.ids.indexOf(k)>-1}).length;return '<button class="item" type="button" data-k="'+k+'">'+ph(k)+'<span>'+esc(IT[k].n)+'</span><span class="n">in '+n+' outfits'+(IT[k].w?' &middot; weekend':'')+'</span></button>'}).join('')+'</div></div>'}).join('');}
+var CATS=[['Jackets',['heavy','jean']],['Layers',['mid']],['Knits',['knit']],['Hoodies',['hood']],['Shirts and polos',['shirt','polo','lspolo']],['Tees',['tee','gtee']],['Caps',['hat']],['Trousers',['bottom']],['Shoes',['shoe']],['Gym tops',['gtop']],['Gym bottoms',['gbot']],['Socks',['sock']]];
+function renderCloset(){document.getElementById('cats').innerHTML=CATS.map(function(c){return '<div class="cat"><h2>'+c[0]+'</h2><div class="items">'+by(c[1]).map(function(k){var n=ALL.filter(function(o){return o.every.indexOf(k)>-1}).length;return '<button class="item" type="button" data-k="'+k+'">'+ph(k)+'<span>'+esc(IT[k].n)+'</span><span class="n">in '+n+' outfits'+(IT[k].w?' &middot; weekend':'')+'</span></button>'}).join('')+'</div></div>'}).join('');}
 document.getElementById('cats').addEventListener('click',function(e){var b=e.target.closest('.item');if(!b)return;st={w:'all',src:'all',cap:'any',piece:b.dataset.k,n:24};sel.value=b.dataset.k;location.hash='outfits';});
 
 // routing
@@ -365,3 +475,6 @@ function route(){var v=(location.hash||'#outfits').slice(1);if(['outfits','shuff
 window.addEventListener('hashchange',route);route();
 })();
 </script>
+
+</body>
+</html>
